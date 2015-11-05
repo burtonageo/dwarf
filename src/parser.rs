@@ -8,7 +8,7 @@ use Error;
 
 named! {
     parens<i64>,
-    delimited!(
+    delimited! (
         delimited!(opt!(multispace), tag!("("), opt!(multispace)),
         expr,
         delimited!(opt!(multispace), tag!(")"), opt!(multispace))
@@ -21,7 +21,7 @@ named! {
 // the parser will fail
 named! {
     factor<i64>,
-    alt!(
+    alt! (
         map_res!(map_res!(delimited!(opt!(multispace), digit, opt!(multispace)),
                           str::from_utf8),
                  FromStr::from_str)
@@ -31,7 +31,7 @@ named! {
 
 named! {
     term <i64>,
-    chain!(
+    chain! (
         mut acc: factor ~ many0! (
             alt! (
                 tap!(mul: preceded!(tag!("*"), factor) => acc = acc * mul) |
@@ -44,7 +44,7 @@ named! {
 
 named! {
     expr <i64>,
-    chain!(
+    chain! (
         mut acc: factor ~ many0! (
             alt! (
                 tap!(add: preceded!(tag!("+"), factor) => acc = acc + add) |
