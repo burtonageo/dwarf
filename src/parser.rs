@@ -1,10 +1,9 @@
 #![allow(dead_code)]
 
+use error::Error;
 use nom::{IResult, digit, multispace};
 use std::str;
 use std::str::FromStr;
-
-use Error;
 
 named! {
     parens<i64>,
